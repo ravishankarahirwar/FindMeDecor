@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">FindMeDecor</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_twitter_home">TwitterHome</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="toast_twitter_signin_fail">It was not possible to Sign in with Twitter, try again later</string>
+
+    <string name="sign_in_with_twitter">Sign in with Twitter</string>
+    <string name="title_activity_all_post">AllPostActivity</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="install">Install</string>
+    <string name="title_text_to_image">Install Twitter</string>
+    <string name="desc_text_to_image">For sign-in with Twitter you need to install Twitter Android App, Please install </string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
