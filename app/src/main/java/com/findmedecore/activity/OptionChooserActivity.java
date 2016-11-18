@@ -3,8 +3,10 @@ package com.findmedecore.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,10 @@ public class OptionChooserActivity extends AppCompatActivity implements View.OnC
 
     private Button mPostTweet;
     private Button mSeeAllPost;
+    private Button mSearchTimeline;
     private Button mLogout;
+
+    private EditText mSearch;
 
     private String userName;
 
@@ -38,6 +43,7 @@ public class OptionChooserActivity extends AppCompatActivity implements View.OnC
     private void init() {
         mUserName = (TextView) this.findViewById(R.id.user_name);
         mDisplayName = (TextView) this.findViewById(R.id.display_name);
+        mSearch = (EditText) this.findViewById(R.id.search);
 
         mPostTweet = (Button) this.findViewById(R.id.post_tweet);
         mPostTweet.setOnClickListener(this);
@@ -45,6 +51,8 @@ public class OptionChooserActivity extends AppCompatActivity implements View.OnC
         mSeeAllPost.setOnClickListener(this);
         mLogout = (Button) this.findViewById(R.id.logout);
         mLogout.setOnClickListener(this);
+        mSearchTimeline = (Button) this.findViewById(R.id.search_timeline);
+        mSearchTimeline.setOnClickListener(this);
 
         mSession = Twitter.getSessionManager().getActiveSession();
     }
@@ -66,6 +74,14 @@ public class OptionChooserActivity extends AppCompatActivity implements View.OnC
             case R.id.see_all_post:
                 startAllPostActivity();
                 break;
+            case R.id.search_timeline:
+                if(TextUtils.isEmpty(mSearch.getText())) {
+                 mSearch.setError("Please enter search query");
+                } else {
+                    String query = mSearch.getText().toString();
+                    startAllPostActivity(query);
+                }
+                break;
             case R.id.logout:
                 setUpSignOut();
                 break;
@@ -76,6 +92,15 @@ public class OptionChooserActivity extends AppCompatActivity implements View.OnC
         final Intent startAllPost = new Intent(OptionChooserActivity.this,
                 AllPostActivity.class);
         startAllPost.putExtra("user_name", mSession.getUserName());
+        startActivity(startAllPost);
+    }
+
+    private void startAllPostActivity(String query) {
+        final Intent startAllPost = new Intent(OptionChooserActivity.this,
+                AllPostActivity.class);
+        startAllPost.putExtra("user_name", mSession.getUserName());
+        startAllPost.putExtra("isSearch", true);
+        startAllPost.putExtra("search_query", query);
         startActivity(startAllPost);
     }
 
