@@ -16,4 +16,11 @@
     <string name="title_text_to_image">Install Twitter</string>
     <string name="desc_text_to_image">For sign-in with Twitter you need to install Twitter Android App, Please install </string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="logout">Logout</string>
+    <string name="search_timeline">Search Timeline</string>
+    <string name="timeline">Timeline</string>
+    <string name="tweet">Tweet</string>
+    <string name="hint_search">Enter search tag</string>
+
 </resources>

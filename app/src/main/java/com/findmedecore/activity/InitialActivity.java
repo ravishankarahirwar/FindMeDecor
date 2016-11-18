@@ -1,13 +1,12 @@
 package com.findmedecore.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Session;
 
-public class InitialActivity extends Activity {
+public class InitialActivity extends BaseActivity {
     private static final String TAG = InitialActivity.class.getName();
 
     @Override

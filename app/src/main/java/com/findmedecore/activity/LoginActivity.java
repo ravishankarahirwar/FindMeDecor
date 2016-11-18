@@ -1,12 +1,12 @@
 package com.findmedecore.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.findmedecore.R;
@@ -16,8 +16,8 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     private TwitterLoginButton twitterButton;
     private Context mContext;
@@ -39,11 +39,13 @@ public class LoginActivity extends Activity {
         twitterButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
+                Log.d(TAG, "Successfully login with Twitter");
                 startOptionChooserActivity();
             }
 
             @Override
             public void failure(TwitterException exception) {
+                Log.e(TAG, "Failed to login with Twitter");
                 if (exception.getMessage().equalsIgnoreCase("Authorize failed.")) {
                     Toast.makeText(getApplicationContext(),
                             getResources().getString(R.string.toast_twitter_signin_fail) + exception.getMessage(),
@@ -51,8 +53,6 @@ public class LoginActivity extends Activity {
                 } else {
                     requestInstallTwitter();
                 }
-
-
             }
         });
     }
@@ -79,13 +79,15 @@ public class LoginActivity extends Activity {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-            } });
+            }
+        });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, mContext.getString(R.string.install), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent  intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("market://details?id=com.twitter.android"));
                 mContext.startActivity(intent);
-            }});
+            }
+        });
         alertDialog.show();
     }
 }

@@ -3,18 +3,20 @@ package com.findmedecore.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import com.findmedecore.R;
+import com.findmedecore.util.Constants;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
 
-public class AllPostActivity extends AppCompatActivity {
+public class AllPostActivity extends BaseActivity {
+    private static final String TAG = AllPostActivity.class.getSimpleName();
+
     private ListView timeLine;
     private String mUserName;
     private boolean isSearchTimeLine;
@@ -27,8 +29,8 @@ public class AllPostActivity extends AppCompatActivity {
 
         timeLine = (ListView) findViewById(R.id.list);
 
-        mUserName = getIntent().getStringExtra("user_name");
-        isSearchTimeLine = getIntent().getBooleanExtra("isSearch", false);
+        mUserName = getIntent().getStringExtra(Constants.EXTRA_USER_NAME);
+        isSearchTimeLine = getIntent().getBooleanExtra(Constants.EXTRA_IS_SEARCH, false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,10 +41,10 @@ public class AllPostActivity extends AppCompatActivity {
             setTitle("Timeline");
             AllPostTask allPostTask = new AllPostTask(AllPostActivity.this);
             allPostTask.execute(null, null, null);
-        } else if(isSearchTimeLine) {
-            String query = getIntent().getStringExtra("search_query");
+        } else if (isSearchTimeLine) {
+            String query = getIntent().getStringExtra(Constants.EXTRA_SEARCH_QUERY);
             setTitle("Search : " + query);
-            if(query != null && query.length() > 0) {
+            if (query != null && query.length() > 0) {
                 SearchTimeLineTask searchTimeLineTask = new SearchTimeLineTask(AllPostActivity.this);
                 searchTimeLineTask.execute(query, null, null);
             }
